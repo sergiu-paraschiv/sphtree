@@ -113,7 +113,7 @@
     }
     
     function main(fb) {
-        $('#fblogin').css('display', 'none');
+        $('.fblogin').css('display', 'none');
         //fb.userID
         loadAvatar(552792834796681, function() {
             var canvas = fillCanvas(this);
