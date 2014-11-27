@@ -4,36 +4,33 @@
 <head>
     <title>Sphtree</title>
 
-    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
-    <div
-        class="fb-like"
-        data-share="true"
-        data-width="450"
-        data-show-faces="true">
+    <div id="fb-root"></div>
+    <div id="main">
+        <canvas id="canvas"></canvas>
     </div>
     
+    <h1>FB Login first...</h1>
+    <fb:login-button id="fblogin" autologoutlink="true"></fb:login-button>
+    
+    <script src="lib/jquery.js"></script>
+    <script src="lib/d3.js"></script>
+    <script src="main.js"></script>
     <script>
     window.fbAsyncInit = function() {
         FB.init({
-            appId      : '353417398152278',
-            xfbml      : true,
-            version    : 'v2.2'
+            appId: "353417398152278",
+            xfbml: true,
+            version: "v2.2"
         });
         
-        FB.api('/me', {fields: 'id'}, function(response) {
-            FB.api(
-                {
-                    method: 'fql.query',
-                    query: 'SELECT pid, src_big, src_big_height, src_big_width FROM photo WHERE aid IN ( SELECT aid FROM album WHERE owner="' + response.id + '" AND name = "Profile Pictures")'
-                },
-                function(data) {
-                    console.log(data);
-                }
-            );
-            
+        FB.getLoginStatus(function(response) {
+            if(response.status === "connected") {
+                window.magick(response.authResponse);
+            }
         });
     };
     
@@ -43,7 +40,7 @@
             js = d.createElement(s); js.id = id;
             js.src = "//connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
+        }(document, "script", "facebook-jssdk"));
     </script>
 </body>
 

@@ -1,0 +1,13 @@
+{
+  "name": "Sphtree",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.html",
+  "author": "Sergiu Paraschiv",
+  "license": "None",
+  "devDependencies": {
+    "gulp": "~3.8.7",
+    "gulp-connect": "~2.0.6",
+    "gulp-watch": "~0.6.9"
+  }
+}
