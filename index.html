@@ -9,12 +9,13 @@
 
 <body>
     <div id="fb-root"></div>
+
+    <h1 class="fblogin">FB Login first...</h1>
+    <fb:login-button  autologoutlink="true"></fb:login-button>
+    
     <div id="main">
         <canvas id="canvas"></canvas>
     </div>
-    
-    <h1 class="fblogin">FB Login first...</h1>
-    <fb:login-button class="fblogin" autologoutlink="true"></fb:login-button>
     
     <script src="lib/jquery.js"></script>
     <script src="lib/d3.js"></script>
@@ -24,17 +25,24 @@
         FB.init({
             appId: "353417398152278",
             xfbml: true,
+            status : true,
             version: "v2.2"
         });
         
-        FB.Event.subscribe('auth.statusChange', function() {
-            FB.getLoginStatus(function(response) {
-                if(response.status === "connected") {
-                    window.magick(response.authResponse);
-                }
-            });
+        FB.getLoginStatus(function(response) {
+            if(response.status === "connected") {
+                run(response);
+            }
+            else {
+                FB.Event.subscribe('auth.login', function(response) {
+                    run(response);
+                });
+            }
         });
         
+        function run(response) {
+            window.magick(response.authResponse);
+        }
     };
     
     (function(d, s, id){
